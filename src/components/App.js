@@ -9,7 +9,7 @@ class App extends Component {
           <div className="header-wrapper">
             <div className="container">
               <header className="valign-wrapper">
-                <h1>track my stack</h1>
+                    <h1>track my stack</h1>
               </header>
             </div>
           </div>

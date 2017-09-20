@@ -7,7 +7,7 @@ class Home extends Component {
         <div>
             <div className="row">
                 <div className="col s12">
-                    Home Component
+                    <p>Home Component</p>
                 </div>
             </div>
         </div>
