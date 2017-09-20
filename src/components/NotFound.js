@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import './App.css';
+import '../css/App.css';
 
-class App extends Component {
+class NotFound extends Component {
   render() {
     return (
         <div>
@@ -13,13 +13,15 @@ class App extends Component {
             </div>
           </div>
           <div className="container">
-            <p className="App-intro">
-              To get started, edit <code>src/App.js</code> and save to reload.
-            </p>
+            <div className="row">
+                <div className="col s12">
+                    <h2>you're lost af</h2>
+                </div>
+            </div>
           </div>
         </div>
     );
   }
 }
 
-export default App;
+export default NotFound;
