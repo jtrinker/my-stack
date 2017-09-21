@@ -2,13 +2,13 @@
   height: 75px;
   background-color: #222;
   width: 100%;
+  margin-bottom: 50px;
 }
 
 header {
   background-color: #222;
   height: 75px;
   width: 100%;
-  padding: 0 0.75rem;
   color: white;
 }
 
