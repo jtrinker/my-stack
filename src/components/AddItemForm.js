@@ -19,7 +19,7 @@ class AddItemForm extends Component {
 
   fetchPrice(e) {
     e.preventDefault();
-    const apiUrl = 'https://globalmetals.xignite.com/xGlobalMetals.json/GetRealTimeMetalQuote?Symbol=XAU&Currency=USD&_token=3A7B98F3EB3846DE9EC1FE7C73A279D3';
+    const apiUrl = 'https://hacker-news.firebaseio.com/v0/item/8863.json?print=pretty';
     // on form submit we'll stick all form data into object, call fetchPrice, and pass in object.
     jQuery.ajax({
       method: 'GET',
