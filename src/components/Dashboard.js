@@ -11,7 +11,7 @@ class Dashboard extends Component {
         <div>
             <div className="row">
                 <div className="col s12">
-                    <AddItemForm />
+                    <AddItemForm addItem={this.props.addItem} />
                 </div>
                 <div className="col s10">
                     {/* <PriceTicker /> */}

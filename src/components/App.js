@@ -5,10 +5,17 @@ import '../css/App.css';
 class App extends Component {
   constructor() {
     super();
+    this.addItem = this.addItem.bind(this);
 
     this.state = {
       items: {}
     }
+  }
+  addItem(item) {
+    const items = {...this.state.items};
+    items[item] = item;
+    // why cant I click multiple times and keep adding to state obkect?
+    this.setState({ items: items });
   }
   render() {
     return (
@@ -21,7 +28,7 @@ class App extends Component {
             </div>
           </div>
           <div className="container">
-            <Dashboard />
+            <Dashboard addItem={this.addItem} />
           </div>
         </div>
     );

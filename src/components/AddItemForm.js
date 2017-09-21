@@ -21,12 +21,12 @@ class AddItemForm extends Component {
     e.preventDefault();
     const apiUrl = 'https://hacker-news.firebaseio.com/v0/item/8863.json?print=pretty';
     // on form submit we'll stick all form data into object, call fetchPrice, and pass in object.
+
     jQuery.ajax({
       method: 'GET',
       url: apiUrl,
-      success: (price) => {
-        this.price = price;
-        console.log(this.price);
+      success: (item) => {
+        this.props.addItem(item);
       }
     });
   }
