@@ -6,8 +6,6 @@ class AddItemForm extends Component {
   constructor() {
     super();
     const price = {};
-
-    this.fetchPrice = this.fetchPrice.bind(this);
   }
 
   componentWillMount() {
@@ -17,26 +15,12 @@ class AddItemForm extends Component {
     });
   }
 
-  fetchPrice(e) {
-    e.preventDefault();
-    const apiUrl = 'https://hacker-news.firebaseio.com/v0/item/8863.json?print=pretty';
-    // on form submit we'll stick all form data into object, call fetchPrice, and pass in object.
-
-    jQuery.ajax({
-      method: 'GET',
-      url: apiUrl,
-      success: (item) => {
-        this.props.addItem(item);
-      }
-    });
-  }
-
   render() {
     return (
         <div>
             <div className="row">
                 <div className="col s12">
-                    <form onSubmit={(e) => this.fetchPrice(e)}>
+                    <form onSubmit="">
                       <div className="input-field col s3">
                         <select>
                             <option value="Select Metal">Select</option>

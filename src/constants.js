@@ -1,0 +1,1 @@
+export const API_URL = '/paid/API63005b297d6845b207d8dc710f7825eff46b6eb3271c225908/all_metals_json_usd.php';
