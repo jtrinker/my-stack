@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../css/App.css';
 import AddItemForm from './AddItemForm';
+import Ticker from './Ticker';
 
 class Dashboard extends Component {
   constructor() {
@@ -9,9 +10,9 @@ class Dashboard extends Component {
   render() {
     return (
         <div>
-            <div className="row">
+            <div className="row ticker-wrapper valign-wrapper">
                 <div className="col s12">
-                    {/* <PriceTicker /> */}
+                    <Ticker goldPrice={this.props.goldPrice} />
                 </div>
             </div>
             <div className="row">

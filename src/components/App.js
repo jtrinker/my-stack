@@ -40,7 +40,7 @@ class App extends Component {
   render() {
     return (
         <div>
-          <div className="header-wrapper z-depth-3">
+          <div className="header-wrapper z-depth-1">
             <div className="container">
               <header className="valign-wrapper">
                     <h1>inventory</h1>
@@ -48,7 +48,7 @@ class App extends Component {
             </div>
           </div>
           <div className="container">
-            <Dashboard addItem={this.addItem} />
+            <Dashboard addItem={this.addItem} goldPrice={this.state.goldPrice} />
           </div>
         </div>
     );
