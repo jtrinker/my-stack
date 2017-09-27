@@ -21,18 +21,28 @@ class App extends Component {
       headers: {'Access-Control-Allow-Origin': '*'},
       url: Constants.API_URL,
       success: (gold) => {
-        this.updateGoldPrice(gold.gold_bid_usd_toz);
+        this.updateGoldPrice(gold);
       }
     });
   }
+  isPriceUp(current,lastClose){
+    // send this data to ticker.js to add/remove classes from array
+    if (lastClose > current) {
+      return false;
+    } else if (lastClose < current) {
+      return true;
+    }
+  }
   updateGoldPrice(goldPrice) {
-    console.log(goldPrice);
     this.setState({ goldPrice: goldPrice });
+    const current = Number.parseFloat(this.state.goldPrice.gold_bid_usd_toz);
+    const lastClose = current - Number.parsefloat(this.state.goldPrice.gold_change_dollar_usd_toz);
+    priceUpOrDown(current,lastClose);
   }
   componentDidMount() {
     this.fetchGoldPrice();
     this.timer = setInterval(
-      () => this.fetchGoldPrice(), 30000);
+      () => this.fetchGoldPrice(), 10000);
   }
   componentWillUnmount() {
     clearInterval(this.timer);

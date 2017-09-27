@@ -9,5 +9,37 @@
 
 .ticker-symbol .price {
   font-size: 17px;
-  color: #2271E7;
 }
+
+.price-up {
+  color: #008D55;
+}
+
+.price-down {
+  color: #AD0015
+}
+
+/* arrows */
+.red-arrow {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 9px 15.6px 9px;
+  border-color: transparent transparent #ad0014 transparent;
+}
+
+/* highlighting transition on price change
+
+.highlight-red {
+    background-color: red;  
+}
+.highlight-green {
+    background-color: green;  
+}
+td {
+    -webkit-transition: 1s linear all;  
+    transition: 1s linear all;  
+    background-color: clear;  
+}
+
+*/
