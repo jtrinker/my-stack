@@ -7,13 +7,16 @@ import '../css/App.css';
 class App extends Component {
   constructor() {
     super();
-    this.updateGoldPrice = this.updateGoldPrice.bind(this);
     this.fetchGoldPrice = this.fetchGoldPrice.bind(this);
     this.state = {
       goldPrice: '',
+      goldUp: false,
       items: {}
     }
   }
+
+  //grab gold price on initial load and every 10 sec; pass
+  //price to updateGoldPrice()
   fetchGoldPrice() {
     jQuery.ajax({
       method: 'GET',
@@ -25,22 +28,33 @@ class App extends Component {
       }
     });
   }
-  isPriceUp(current,lastClose){
-    // send this data to ticker.js to add/remove classes from array
-    if (lastClose > current) {
-      return false;
-    } else if (lastClose < current) {
-      return true;
-    }
-  }
+
+  //setState/update state with latest gold price
+  //measure if price is up/down and set that in state to pass down to ticker
   updateGoldPrice(goldPrice) {
-    this.setState({ goldPrice: goldPrice });
-    const current = Number.parseFloat(this.state.goldPrice.gold_bid_usd_toz);
-    const lastClose = current - Number.parsefloat(this.state.goldPrice.gold_change_dollar_usd_toz);
-    priceUpOrDown(current,lastClose);
+    const currentGold = Number.parseFloat(goldPrice.gold_bid_usd_toz);
+    const lastCloseGold = this.currentGold - (Number.parseFloat(goldPrice.gold_change_dollar_usd_toz));
+    this.goldUp;
+
+    if (lastCloseGold > currentGold) {
+      this.goldUp = false;
+    }else if (lastCloseGold < currentGold) {
+      this.goldUp = true;
+    }
+
+    this.setState({ 
+      goldPrice: goldPrice,
+      goldUp: this.goldUp
+    });
   }
-  componentDidMount() {
+
+  // grab gold price before initial load
+  componentWillMount() {
     this.fetchGoldPrice();
+  }
+
+  //recheck gold price every 10 sec
+  componentDidMount() {
     this.timer = setInterval(
       () => this.fetchGoldPrice(), 10000);
   }
@@ -58,7 +72,7 @@ class App extends Component {
             </div>
           </div>
           <div className="container">
-            <Dashboard addItem={this.addItem} goldPrice={this.state.goldPrice} />
+            <Dashboard addItem={this.addItem} goldPrice={this.state.goldPrice} goldUp={this.state.goldUp} />
           </div>
         </div>
     );
