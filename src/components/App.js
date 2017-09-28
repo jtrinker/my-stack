@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Loading from './Loading';
 import Dashboard from './Dashboard';
 import * as Constants from '../constants';
 import jQuery from 'jquery/dist/jquery.js';
@@ -10,7 +11,7 @@ class App extends Component {
     this.fetchGoldPrice = this.fetchGoldPrice.bind(this);
     this.state = {
       goldPrice: '',
-      goldUp: false,
+      goldUp: null,
       items: {}
     }
   }
@@ -33,34 +34,32 @@ class App extends Component {
   //measure if price is up/down and set that in state to pass down to ticker
   updateGoldPrice(goldPrice) {
     const currentGold = Number.parseFloat(goldPrice.gold_bid_usd_toz);
-    const lastCloseGold = this.currentGold - (Number.parseFloat(goldPrice.gold_change_dollar_usd_toz));
-    this.goldUp;
+    const lastCloseGold = currentGold - (Number.parseFloat(goldPrice.gold_change_dollar_usd_toz));
+
+    let goldUp = null;
 
     if (lastCloseGold > currentGold) {
-      this.goldUp = false;
+      goldUp = false;
     }else if (lastCloseGold < currentGold) {
-      this.goldUp = true;
+      goldUp = true;
     }
 
     this.setState({ 
       goldPrice: goldPrice,
-      goldUp: this.goldUp
+      goldUp: goldUp
     });
-  }
-
-  // grab gold price before initial load
-  componentWillMount() {
-    this.fetchGoldPrice();
   }
 
   //recheck gold price every 10 sec
   componentDidMount() {
+    // get gold price on initial load; es6 this goes here instead of componentWillMount()
+    this.fetchGoldPrice();
     this.timer = setInterval(
       () => this.fetchGoldPrice(), 10000);
   }
   componentWillUnmount() {
     clearInterval(this.timer);
-}
+  }
   render() {
     return (
         <div>
@@ -72,7 +71,12 @@ class App extends Component {
             </div>
           </div>
           <div className="container">
-            <Dashboard addItem={this.addItem} goldPrice={this.state.goldPrice} goldUp={this.state.goldUp} />
+            {
+              this.state.goldUp !== null ? (
+                    <Dashboard goldPrice={this.state.goldPrice} goldUp={this.state.goldUp} />
+              ) : (<Loading />)
+
+            }
           </div>
         </div>
     );

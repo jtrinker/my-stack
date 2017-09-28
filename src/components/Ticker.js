@@ -1,39 +1,47 @@
 import React, { Component } from 'react';
+import Loading from './Loading';
+import Gold from './Gold';
 import '../css/Ticker.css';
 
 class Ticker extends Component {
-  constructor() {
-    super();
-    this.priceClasses = ['price'];
+  constructor(props) {
+    super(props);
+    this.priceClass='';
     this.updatePriceClasses = this.updatePriceClasses.bind(this);
+    let isGoldUp = this.props.goldUp;
+    this.updatePriceClasses(isGoldUp);
   }
 
-  updatePriceClasses() {
-    const up = this.props.goldUp;
-    if (!up) {
-      this.priceClasses.splice(-1);
-      this.priceClasses.push('price-down');
-    } else {
-      this.priceClasses.splice(-1);
-      this.priceClasses.push('price-up');
+  updatePriceClasses(isGoldUp) {
+    if (isGoldUp === false) {
+      this.priceClass = 'price-down';
+    } else if (isGoldUp) {
+      this.priceClass = 'price-up';
     }
-  }
-
-  //will check if gold is up or down on initial load? Check on this and willUpdate()
-  //update green/red classes with updatePriceClaess()
-  componentWillMount() {
-    this.updatePriceClasses(this.lastCloseGold,this.currentGold);
   }
 
   //will check if price is up or down everytime gold refreshes
   //update green/red classes with updatePriceClaess()
   componentWillUpdate() {
-    this.updatePriceClasses();
+    let isGoldUp = this.props.goldUp;
+    this.updatePriceClasses(isGoldUp);
   }
 
+  // if ajax request is not complete yet show nothing, else show price.
   render() {
+    let gold = null;
+
+    if (this.props.goldUp === null) {
+      gold = <Loading />;
+    }else{
+      gold = <Gold goldUp={this.props.goldUp} goldPrice={this.props.goldPrice} priceClass={this.priceClass} />;
+    }
+
     return (
-      <h4 className="ticker-symbol">Gold <span className={this.priceClasses.join(' ')}>${this.props.goldPrice.gold_bid_usd_toz}</span></h4>
+      <div>
+        <h4 className="ticker-symbol">Gold</h4>
+        {gold}
+      </div>
     )
   }
 }
