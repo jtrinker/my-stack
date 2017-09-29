@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../css/Ticker.css';
+import Loader from '../Ball.svg';
 
 class Loading extends Component {
   constructor() {
@@ -7,7 +8,9 @@ class Loading extends Component {
   }
   render() {
     return (
-      <div>Loading...</div>
+      <div className="center-align">
+        <img src={Loader} alt="Loading" />
+      </div>
     )
   }
 }

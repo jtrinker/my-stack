@@ -33,7 +33,7 @@ class App extends Component {
   //setState/update state with latest gold price
   //measure if price is up/down and set that in state to pass down to ticker
   updateGoldPrice(goldPrice) {
-    const currentGold = Number.parseFloat(goldPrice.gold_bid_usd_toz);
+    const currentGold = Number.parseFloat(goldPrice.gold_ask_usd_toz);
     const lastCloseGold = currentGold - (Number.parseFloat(goldPrice.gold_change_dollar_usd_toz));
 
     let goldUp = null;

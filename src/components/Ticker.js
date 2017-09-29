@@ -29,18 +29,10 @@ class Ticker extends Component {
 
   // if ajax request is not complete yet show nothing, else show price.
   render() {
-    let gold = null;
-
-    if (this.props.goldUp === null) {
-      gold = <Loading />;
-    }else{
-      gold = <Gold goldUp={this.props.goldUp} goldPrice={this.props.goldPrice} priceClass={this.priceClass} />;
-    }
-
     return (
       <div>
         <h4 className="ticker-symbol">Gold</h4>
-        {gold}
+        <Gold goldUp={this.props.goldUp} goldPrice={this.props.goldPrice} priceClass={this.priceClass} />
       </div>
     )
   }
