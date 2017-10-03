@@ -9,7 +9,7 @@ class Gold extends Component {
     return (
       <div>
       {this.props.classNames}
-        <p className={this.props.priceClass}>{this.props.goldPrice.gold_ask_usd_toz}</p>
+        <p className={this.props.priceClass}>{this.props.goldPrice}</p>
       </div>
     )
   }
