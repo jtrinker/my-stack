@@ -28,9 +28,53 @@ class App extends Component {
       headers: {'Access-Control-Allow-Origin': '*'},
       url: Constants.API_URL,
       success: (metal) => {
-        this.updatePrice(metal);
+        this.destructureObject(metal);
       }
     });
+  }
+
+  // destructure metalPrice object
+  destructureObject(metal) {
+    const goldPrice = metal.gold_ask_usd_toz;
+    const goldChangeLastClose = metal.gold_change_dollar_usd_toz;
+    const goldPercentChange = metal.gold_change_percent_usd_toz;
+
+    const silverPrice = metal.silver_ask_usd_toz;
+    const silverChangeLastClose = metal.silver_change_dollar_usd_toz;
+    const silverPercentChange = metal.silver_change_percent_usd_toz;
+
+    const platinumPrice = metal.platinum_ask_usd_toz;
+    const platinumChangeLastClose = metal.platinum_change_dollar_usd_toz;
+    const platinumPercentChange = metal.platinum_change_percent_usd_toz;
+
+    const palladiumPrice = metal.palladium_ask_usd_toz;
+    const palladiumChangeLastClose = metal.palladium_change_dollar_usd_toz;
+    const palladiumPercentChange = metal.palladium_change_percent_usd_toz;
+
+    const metalObj = {
+      gold: {
+        goldPrice: goldPrice,
+        goldChangeLastClose: goldChangeLastClose,
+        goldPercentChange: goldPercentChange
+      },
+      silver: {
+        silverPrice: silverPrice,
+        silverChangeLastClose: silverChangeLastClose,
+        silverPercentChange: silverPercentChange
+      },
+      platinum: {
+        platinumPrice: platinumPrice,
+        platinumChangeLastClose: platinumChangeLastClose,
+        platinumPercentChange: platinumPercentChange
+      },
+      palladium: {
+        palladiumPrice: palladiumPrice,
+        palladiumChangeLastClose: palladiumChangeLastClose,
+        palladiumPercentChange: palladiumPercentChange
+      }
+    }
+
+    this.updatePrice(metalObj);
   }
 
   //setState/update state with latest metal prices
