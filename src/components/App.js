@@ -15,6 +15,10 @@ class App extends Component {
       goldUp: null,
       silverPrice: '',
       silverUp: null,
+      platinumPrice: '',
+      platinumUp: null,
+      palladiumPrice: '',
+      palladiumUp: null,
       items: {}
     }
   }
@@ -33,62 +37,51 @@ class App extends Component {
     });
   }
 
-  // destructure metalPrice object
+  // build a new object with only the properties I need
+  // rename properties so that they are more readable 
   destructureObject(metal) {
-    const goldPrice = metal.gold_ask_usd_toz;
-    const goldChangeLastClose = metal.gold_change_dollar_usd_toz;
-    const goldPercentChange = metal.gold_change_percent_usd_toz;
+    const types = ['gold', 'silver', 'platinum', 'palladium'];
+    const props = ['ask_usd_toz', 'change_dollar_usd_toz', 'change_percent_usd_toz'];
+    const namesMap = {
+        ask_usd_toz: 'price',
+        change_dollar_usd_toz: 'changeLastClose',
+        change_percent_usd_toz: 'percentChange'
+    };
 
-    const silverPrice = metal.silver_ask_usd_toz;
-    const silverChangeLastClose = metal.silver_change_dollar_usd_toz;
-    const silverPercentChange = metal.silver_change_percent_usd_toz;
+    const metalObj = {};
 
-    const platinumPrice = metal.platinum_ask_usd_toz;
-    const platinumChangeLastClose = metal.platinum_change_dollar_usd_toz;
-    const platinumPercentChange = metal.platinum_change_percent_usd_toz;
-
-    const palladiumPrice = metal.palladium_ask_usd_toz;
-    const palladiumChangeLastClose = metal.palladium_change_dollar_usd_toz;
-    const palladiumPercentChange = metal.palladium_change_percent_usd_toz;
-
-    const metalObj = {
-      gold: {
-        goldPrice: goldPrice,
-        goldChangeLastClose: goldChangeLastClose,
-        goldPercentChange: goldPercentChange
-      },
-      silver: {
-        silverPrice: silverPrice,
-        silverChangeLastClose: silverChangeLastClose,
-        silverPercentChange: silverPercentChange
-      },
-      platinum: {
-        platinumPrice: platinumPrice,
-        platinumChangeLastClose: platinumChangeLastClose,
-        platinumPercentChange: platinumPercentChange
-      },
-      palladium: {
-        palladiumPrice: palladiumPrice,
-        palladiumChangeLastClose: palladiumChangeLastClose,
-        palladiumPercentChange: palladiumPercentChange
+    types.forEach(function(type) {
+      for (let prop in namesMap) {
+          let key = type + '_' + prop;
+          if (metal.hasOwnProperty(key)) {
+              metalObj[type] = metalObj[type] || {};
+              metalObj[type][namesMap[prop]] = metal[key];
+          }
       }
-    }
-
+    });
     this.updatePrice(metalObj);
   }
 
   //setState/update state with latest metal prices
   //measure if price is up/down and set that in state to pass down to ticker
   updatePrice(metalPrice) {
-    // refactor to create a function that takes any metal and calulates current and last
-    const currentGold = Number.parseFloat(metalPrice.gold_ask_usd_toz);
-    const lastCloseGold = currentGold - (Number.parseFloat(metalPrice.gold_change_dollar_usd_toz));
-
-    const currentSilver = Number.parseFloat(metalPrice.silver_ask_usd_toz);
-    const lastCloseSilver = currentSilver - (Number.parseFloat(metalPrice.silver_change_dollar_usd_toz));
-
     let goldUp = null;
     let silverUp = null; 
+    let platinumUp = null;
+    let palladiumUp = null;
+
+    // refactor to create a function that takes any metal and calculates current and last
+    const currentGold = Number.parseFloat(metalPrice.gold.price).toFixed(2);
+    const lastCloseGold = currentGold - (Number.parseFloat(metalPrice.gold.changeLastClose));
+
+    const currentSilver = Number.parseFloat(metalPrice.silver.price).toFixed(2);
+    const lastCloseSilver = currentSilver - (Number.parseFloat(metalPrice.silver.changeLastClose));
+
+    const currentPlatinum = Number.parseFloat(metalPrice.platinum.price).toFixed(2);
+    const lastClosePlatinum = currentPlatinum - (Number.parseFloat(metalPrice.platinum.changeLastClose));
+
+    const currentPalladium = Number.parseFloat(metalPrice.palladium.price).toFixed(2);
+    const lastClosePalladium = currentPalladium - (Number.parseFloat(metalPrice.palladium.changeLastClose));
 
     if (lastCloseGold > currentGold) {
       goldUp = false;
@@ -102,11 +95,27 @@ class App extends Component {
       silverUp = true;
     }
 
+    if (lastClosePlatinum > currentPlatinum) {
+      platinumUp = false;
+    }else if (lastClosePlatinum < currentPlatinum) {
+      platinumUp = true;
+    }
+
+    if (lastClosePalladium> currentPalladium) {
+      palladiumUp = false;
+    }else if (lastClosePalladium < currentPalladium) {
+      palladiumUp = true;
+    }
+
     this.setState({ 
       goldPrice: currentGold,
       goldUp: goldUp,
       silverPrice: currentSilver,
-      silverUp: silverUp
+      silverUp: silverUp,
+      platinumPrice: currentPlatinum,
+      platinumUp: platinumUp,
+      palladiumPrice: currentPalladium,
+      palladiumUp: palladiumUp
     });
   }
 
@@ -133,7 +142,7 @@ class App extends Component {
           <div className="container">
             {
               this.state.goldUp !== null ? (
-                    <Dashboard goldPrice={this.state.goldPrice} goldUp={this.state.goldUp} />
+                    <Dashboard price={this.state} />
               ) : (<Loading />)
 
             }

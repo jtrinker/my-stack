@@ -14,5 +14,5 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://cors-anywhere.herokuapp.com/http://gold-feed.com"
+  "proxy": "http://cors-anywhere.herokuapp.com/https://gold-feed.com"
 }

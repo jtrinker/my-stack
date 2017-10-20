@@ -12,7 +12,7 @@ class Dashboard extends Component {
         <div>
             <div className="row ticker-wrapper valign-wrapper">
                 <div className="col s12">
-                    <Ticker goldPrice={this.props.goldPrice} goldUp={this.props.goldUp} />
+                    <Ticker goldPrice={this.props.price.goldPrice} goldUp={this.props.price.goldUp} />
                 </div>
             </div>
             <div className="row">

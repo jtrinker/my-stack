@@ -1,5 +1,5 @@
 // Obect forEach method extending by extending the object prototype
-// we specifically extend the defineProperties() methos to avoid breaking other things
+// we specifically extend the defineProperties() methods to avoid breaking other things
 // allows you to run forEach on objects just like arrays
 // works back to ie7
 if (!Object.prototype.forEach) {
