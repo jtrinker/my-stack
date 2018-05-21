@@ -119,9 +119,9 @@ class App extends Component {
     });
   }
 
-  //recheck gold price every 10 sec
+  //recheck prices every 10 sec
   componentDidMount() {
-    // get gold price on initial load; es6 this goes here instead of componentWillMount()
+    // get prices on initial load; es6 this goes here instead of componentWillMount()
     this.fetchPrice();
     this.timer = setInterval(
       () => this.fetchPrice(), 10000);

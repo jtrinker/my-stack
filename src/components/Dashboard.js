@@ -10,9 +10,18 @@ class Dashboard extends Component {
   render() {
     return (
         <div>
-            <div className="row ticker-wrapper valign-wrapper">
+            <div className="row valign-wrapper">
                 <div className="col s12">
-                    <Ticker goldPrice={this.props.price.goldPrice} goldUp={this.props.price.goldUp} />
+                    <Ticker 
+                        goldPrice={this.props.price.goldPrice} 
+                        goldUp={this.props.price.goldUp}
+                        silverPrice={this.props.price.silverPrice} 
+                        silverUp={this.props.price.silverUp}
+                        platinumPrice={this.props.price.platinumPrice} 
+                        platinumUp={this.props.price.platinumUp}
+                        palladiumPrice={this.props.price.palladiumPrice} 
+                        palladiumUp={this.props.price.palladiumUp} 
+                    />
                 </div>
             </div>
             <div className="row">
